@@ -1,0 +1,42 @@
+# Candlelit Trading
+
+> Candlelit builds research and trading software for digital-asset markets.
+
+Candlelit Trading is the developer of Wick, a web-based crypto market research and simulated trading terminal. Candlelit is not a brokerage, exchange, or proprietary trading firm, and does not manage money or provide financial advice.
+
+## Wick
+
+- Product: Wick
+- Product page: https://candlelit.us/wick
+- Application: https://app.candlelit.us/ (private, password-protected)
+- Category: crypto market research and simulated trading software
+- Execution: simulated only; no exchange accounts, no API keys, no real orders
+- Markets: digital assets / cryptocurrency spot pairs, with perpetual-futures positioning data as context
+- Data sources: public exchange market data (Binance spot; Kraken spot and futures; Deribit implied volatility)
+- Purpose: research, trading practice against prop-firm-style rules, risk management, and education
+- Price: free while private
+
+Wick combines live market data, quantitative setup detection ("playbooks"), AI-assisted current-event research, risk-based position sizing, prop-style account constraints (daily loss limit, maximum drawdown, profit target), and simulated trade management.
+
+The system supports human decision-making. Wick never opens a position on its own. Stops fill automatically once a position is open, because a stop is an order the user placed; targets are flagged and closing is a manual decision.
+
+## Core concepts
+
+- Quant Signal: deterministic analysis of market structure, relative volume, momentum, positioning (funding), order flow (taker share), and chart shape. Six playbooks: Trend Continuation, Pullback Continuation, Relative Strength, Momentum Breakout, Blow-off Reversal, Crowded Squeeze. Each is labelled standard, moderate, or aggressive.
+- AI Research: bounded web research that classifies fresh external information as supportive, neutral, or adverse for a setup. Neutral does not invalidate a strong quantitative setup. Research runs only when the user requests it.
+- Wick Verdict: the quantitative call, modified by research. ENTER, WAIT, or PASS. Advisory; the user can override it.
+- Risk Engine: invalidation (stop) is defined from market structure first; position size is then derived so that a stop-out costs a fixed percentage of equity, capped by open risk and the day's remaining loss budget. Aggressive playbooks cap risk at 0.5% of equity.
+- Simulated Trading: manual entries and exits on simulated accounts with prop-style rules, costs, a ledger, and an equity curve.
+- Learning: terms such as ATR, funding, taker flow, invalidation, reward-to-risk, position sizing, and drawdown are explained in plain English where they appear.
+
+## Important pages
+
+- [Wick](https://candlelit.us/wick): what the terminal is and does
+- [Methodology](https://candlelit.us/methodology): how Wick analyzes markets, research, risk, and sizing
+- [Learn](https://candlelit.us/learn): plain-English explanations of the concepts Wick uses
+- [FAQ](https://candlelit.us/faq): product and beginner questions
+- [About](https://candlelit.us/about): what Candlelit is
+
+## Contact
+
+- Email: tradingcandlelight@gmail.com

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Learn Trading Concepts by Using Them: ATR, Funding, Taker Flow, R, Sizing | Candlelit</title>
+  <meta name="description" content="Plain-English explanations of the concepts Wick uses: ATR, funding, taker flow, invalidation, reward-to-risk, position sizing, prop-style drawdown rules, and why overbought is not a short signal." />
+  <link rel="canonical" href="https://candlelit.us/learn" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Candlelit" />
+  <meta property="og:title" content="Learn Trading Concepts by Using Them: ATR, Funding, Taker Flow, R, Sizing | Candlelit" />
+  <meta property="og:description" content="Plain-English explanations of the concepts Wick uses: ATR, funding, taker flow, invalidation, reward-to-risk, position sizing, prop-style drawdown rules, and why overbought is not a short signal." />
+  <meta property="og:url" content="https://candlelit.us/learn" />
+  <meta property="og:image" content="https://candlelit.us/og-wick.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="describedby" href="/llms.txt" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='15.5' y='3' width='1' height='26' fill='%23f2eee6'/%3E%3Crect x='12.5' y='11' width='7' height='11' fill='%23f2eee6'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="in">
+  <header id="hdr">
+    <div class="wrap nav">
+      <a class="mark" href="/">
+        <svg viewBox="0 0 10 26" aria-hidden="true"><rect x="4.5" y="0" width="1" height="26" fill="#f2eee6"/><rect x="2" y="8" width="6" height="10" fill="#f2eee6"/></svg>
+        Candlelit
+      </a>
+      <nav class="links" aria-label="Site"><a href="/wick">Wick</a><a href="/methodology">Methodology</a><a href="/learn" aria-current="page">Learn</a><a href="/faq">FAQ</a><a href="mailto:tradingcandlelight@gmail.com">Contact</a></nav>
+      <a class="enter" href="https://app.candlelit.us">Open Terminal <span class="arrow">↗</span></a>
+    </div>
+  </header>
+
+  <main class="wrap page">
+    <div class="eyebrow">Learn</div>
+    <h1>Learn by <em>operating</em>.</h1>
+    <p class="lede">Short, plain explanations of the ideas Wick puts on screen, written for someone meeting them for the first time. Each one is attached to a decision the terminal asks you to make.</p>
+<div class="toc"><a href="#atr">What Is ATR and Why Does Wick Measure Everything in It?</a><a href="#funding">What Does Funding Mean in Crypto?</a><a href="#taker-flow">What Is Taker Flow?</a><a href="#invalidation">What Is Invalidation, and Why Does It Come Before Size?</a><a href="#reward-to-risk">What Does 2R Mean in Trading?</a><a href="#position-sizing">How Wick Calculates Position Size</a><a href="#wait">Why a Strong Setup Can Still Be a WAIT</a><a href="#drawdown">How Prop-Style Drawdown Rules Work</a><a href="#overbought">Why “Overbought” Doesn't Automatically Mean Short</a></div>
+    <div class="prose">
+      <h2 id="atr">What Is ATR and Why Does Wick Measure Everything in It?</h2>
+      <p>ATR stands for Average True Range. It is the average size of a candle's full range over a window, usually fourteen periods, counting any gap from the previous close. On daily candles it answers a simple question: how far does this coin typically travel in a day?</p>
+<p>Wick uses the daily ATR as its unit. A move is "1.8 ATR", a stop is "1.4 ATR below the swing", a target is "at least one ATR beyond entry". The reason is comparability. A 6% day is an event for Bitcoin and a Tuesday for a small coin. Measured in ATR, both coins can be judged by the same rules, and the stop is placed where noise ends rather than at a round percentage.</p>
+<p>It also protects the beginner from the most common sizing mistake: a stop that is inside the coin's ordinary daily wobble, which gets hit by nothing in particular.</p>
+      <h2 id="funding">What Does Funding Mean in Crypto?</h2>
+      <p>Perpetual futures have no expiry, so they need a mechanism to keep the contract price near the spot price. That mechanism is funding: every eight hours, one side pays the other a small percentage. When the perpetual trades above spot, longs pay shorts; when below, shorts pay longs.</p>
+<p>Funding is therefore a crowd meter. A persistently high positive rate means many traders are long on leverage and paying for the privilege. That is a cost to a long position, and it is also fuel: if price turns down, crowded longs get liquidated and accelerate the move. Wick reports funding per eight hours, marks it crowded beyond a threshold, and has a whole playbook, Crowded Squeeze, built on price moving against the crowd.</p>
+      <h2 id="taker-flow">What Is Taker Flow?</h2>
+      <p>Every trade has a maker, who placed a resting order, and a taker, who crossed the spread to hit it. Takers are the people in a hurry. Taker flow is the share of volume over a period that came from aggressive buying: taker buys divided by all volume.</p>
+<p>Above 50% means buyers were more urgent than sellers. Wick compares the last 24 hours to the coin's own 30-day baseline, because some coins run structurally above or below half. A move up with taker flow below its baseline is a move nobody is chasing, which is worth knowing before you chase it.</p>
+      <h2 id="invalidation">What Is Invalidation, and Why Does It Come Before Size?</h2>
+      <p>Invalidation is the price at which the trade idea is wrong. Not uncomfortable; wrong. For a long taken because price broke above a two-day high, a close back below that structure means the reason for the trade no longer exists.</p>
+<p>Wick sets invalidation first, from structure, and only then computes the size. The order matters. If size comes first, the stop tends to get placed wherever the loss "feels" acceptable, which has nothing to do with where the idea fails. The stop is an order, not an intention: once a position is open, Wick fills it automatically, exactly as a real account would.</p>
+      <h2 id="reward-to-risk">What Does 2R Mean in Trading?</h2>
+      <p>R is the amount you risk on one trade: the distance from entry to stop, multiplied by size. A trade that reaches a target twice that distance away made 2R. A stop-out is −1R.</p>
+<p>Thinking in R detaches results from dollars and from the coin. A 2R winner on a small position and a 2R winner on a large one are the same quality of decision. Wick shows reward-to-risk on every plan, marks anything under 1.5 as a Pass (still takeable), and records the R multiple on every closed trade so a week's results can be read as a distribution rather than a bank balance.</p>
+      <h2 id="position-sizing">How Wick Calculates Position Size</h2>
+      <p>The position is sized so that a stop-out costs a fixed slice of equity. With a $10,000 account, a 0.75% profile and a stop 3% away, the risk budget is $75 and the position is $75 ÷ 3% = $2,500. A stop 6% away halves the position. Volatile coins get smaller positions automatically.</p>
+<p>Two guards sit on top. Total open risk across positions may not exceed 3% of equity, and a stop-out may not breach today's remaining daily loss budget. Those are the only rules in Wick that block a trade outright. Aggressive playbooks are capped at 0.5% per trade because their failures are fast. You can choose a smaller size than recommended, never a larger one than the guards allow.</p>
+      <h2 id="wait">Why a Strong Setup Can Still Be a WAIT</h2>
+      <p>Wait is not a weaker Enter. It means the idea holds but the price does not. A trend that has already run more than a daily ATR from yesterday's close is a good trend at a poor entry; the better entry is the pullback to the 20-bar mean, and Wick builds the trade around that trigger instead.</p>
+<p>A waiting trade is watched every minute. When the trigger is touched, it becomes Ready and the desk tells you. It never opens itself. Research can also turn an Enter into a Wait when it finds something that weakens the case without killing it, such as a large unlock a few days out.</p>
+      <h2 id="drawdown">How Prop-Style Drawdown Rules Work</h2>
+      <p>Proprietary trading challenges usually impose three numbers: a daily loss limit (lose this much in a day and you stop until tomorrow), a maximum drawdown (fall this far below the peak and the account fails), and a profit target (reach it and you pass). Typical values are 4%, 8% and 8%.</p>
+<p>Drawdown is measured from the equity peak, including open positions, which is what makes it unforgiving: a winning streak raises the bar. Wick's simulated accounts enforce all three exactly, show the remaining budget for each on the Trade screen, and are the reason the desk sometimes says nothing all day. Sitting out is part of passing.</p>
+      <h2 id="overbought">Why “Overbought” Doesn't Automatically Mean Short</h2>
+      <p>RSI above 70 is called overbought, which sounds like a signal. It is a description. Strong trends spend a long time overbought precisely because they are strong, and shorting them on that basis alone is how accounts are lost slowly.</p>
+<p>Wick uses momentum extremes as a filter, not a trigger. Trend Continuation refuses to buy above RSI 75; Momentum Breakout allows up to 85 because chasing is the point and size is small. Fading an extreme needs confirmation: the Blow-off Reversal playbook requires the exhaustion shape, RSI beyond 78, and taker flow already flipping against the move. Two out of three is a Watch, not a trade.</p>
+      <div class="rule"></div>
+      <p>Every one of these terms is also explained in Wick itself, on hover, where it appears. <a href="/methodology">Read the methodology</a> for how they fit together.</p>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap fgrid">
+      <div>
+        <div class="n">Candlelit Trading</div>
+        Digital asset research and trading systems.
+        <div class="d">Wick is a simulated trading terminal for research, practice and learning. Candlelit is not a brokerage, exchange or prop firm, and nothing on this site is financial advice.</div>
+      </div>
+      <div class="l"><a href="/wick">Wick</a><a href="/methodology">Methodology</a><a href="/learn">Learn</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://app.candlelit.us">Open Terminal</a><span>© 2026 Candlelit Trading</span></div>
+    </div>
+  </footer>
+  <script src="/site.js"></script>
+</body>
+</html>

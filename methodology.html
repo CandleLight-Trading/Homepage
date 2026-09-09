@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Methodology: How Wick Analyzes Markets, Research, Risk and Sizing | Candlelit</title>
+  <meta name="description" content="How Wick works, plainly: quant signal, AI research, Wick verdict, trade construction, and position monitoring. ATR, volume, funding, taker flow, shapes, invalidation, and risk-based sizing explained." />
+  <link rel="canonical" href="https://candlelit.us/methodology" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Candlelit" />
+  <meta property="og:title" content="Methodology: How Wick Analyzes Markets, Research, Risk and Sizing | Candlelit" />
+  <meta property="og:description" content="How Wick works, plainly: quant signal, AI research, Wick verdict, trade construction, and position monitoring. ATR, volume, funding, taker flow, shapes, invalidation, and risk-based sizing explained." />
+  <meta property="og:url" content="https://candlelit.us/methodology" />
+  <meta property="og:image" content="https://candlelit.us/og-wick.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="describedby" href="/llms.txt" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='15.5' y='3' width='1' height='26' fill='%23f2eee6'/%3E%3Crect x='12.5' y='11' width='7' height='11' fill='%23f2eee6'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="in">
+  <header id="hdr">
+    <div class="wrap nav">
+      <a class="mark" href="/">
+        <svg viewBox="0 0 10 26" aria-hidden="true"><rect x="4.5" y="0" width="1" height="26" fill="#f2eee6"/><rect x="2" y="8" width="6" height="10" fill="#f2eee6"/></svg>
+        Candlelit
+      </a>
+      <nav class="links" aria-label="Site"><a href="/wick">Wick</a><a href="/methodology" aria-current="page">Methodology</a><a href="/learn">Learn</a><a href="/faq">FAQ</a><a href="mailto:tradingcandlelight@gmail.com">Contact</a></nav>
+      <a class="enter" href="https://app.candlelit.us">Open Terminal <span class="arrow">↗</span></a>
+    </div>
+  </header>
+
+  <main class="wrap page">
+    <div class="eyebrow">Methodology</div>
+    <h1>How Wick <em>thinks</em>.</h1>
+    <p class="lede">Five stages, each with a single job. The quantitative side decides direction. Research modifies it. The risk engine decides size. You decide whether to act.</p>
+
+    <div class="pipeline">
+      <div><b>1 · Quant Signal</b>Deterministic checks against six playbooks on hourly and daily bars.</div>
+      <div><b>2 · AI Research</b>Bounded web research classifies fresh context as supportive, neutral, or adverse.</div>
+      <div><b>3 · Wick Verdict</b>Enter, Wait, or Pass: the quant call, modified by research. Advisory.</div>
+      <div><b>4 · Trade Construction</b>Invalidation from structure, target from structure, size from risk.</div>
+      <div><b>5 · Position Monitoring</b>Every minute: triggers, stops, targets, and what changed since entry.</div>
+    </div>
+    <div class="prose">
+      <h2>1 · Quant Signal</h2>
+      <p>Every fifteen minutes, and whenever you press Scan Now, Wick computes a set of features for each tracked coin from stored exchange candles. Nothing here involves a model or an opinion; it is arithmetic on public data.</p>
+      <ul>
+        <li><strong>Move in ATR.</strong> The move since yesterday's close, divided by the coin's own 14-day Average True Range. A 6% move is dramatic for Bitcoin and ordinary for a small coin; measuring in ATR makes coins comparable.</li>
+        <li><strong>Relative volume.</strong> The last 24 hours of volume against the average of the last 30 days.</li>
+        <li><strong>Trend.</strong> Where price sits relative to its 20, 50 and 200-hour moving averages.</li>
+        <li><strong>Momentum.</strong> RSI on hourly bars, used to avoid buying exhaustion rather than to predict.</li>
+        <li><strong>Positioning.</strong> The perpetual-futures funding rate and open interest. Extreme funding means one side is crowded.</li>
+        <li><strong>Flow.</strong> The share of volume that was aggressive buying ("taker" buys), against the coin's own 30-day baseline.</li>
+        <li><strong>Own move.</strong> The 24-hour change minus what Bitcoin's move would predict from the coin's beta: how much of the move is the coin's own.</li>
+        <li><strong>Shape.</strong> The geometry of the last three days, labelled (clean uptrend, flag, squeeze, blow-off, capitulation, chop and so on) from regression slope, efficiency ratio and variance ratio, together with how that same shape resolved on this coin before.</li>
+      </ul>
+      <p>The features are then checked against the six playbooks in a fixed order. The first playbook whose checks all pass gives the stance (long or short) and its risk character. Every check of every playbook is shown on the card, so a near-miss is visible. A shape whose own history on this coin is clearly adverse can veto a call.</p>
+
+      <h2>2 · AI Research</h2>
+      <p>Research runs only when you press Research. A single model call with bounded web search (at most three searches) receives a compact pack: a dozen numbers, the matched playbook, the current UTC time. It is told, in so many words, not to redo the technical analysis and not to require a news catalyst. Its job is to classify fresh external information for the stated stance as <strong>supportive</strong>, <strong>neutral</strong>, or <strong>adverse</strong>, with a modifier (strengthen, unchanged, weaken, veto), one plain-English reason, dated catalysts, and two sentences.</p>
+      <p>Two rules shape its personality. Nothing found is neutral, and neutral does not invalidate a strong quantitative setup. Veto is reserved for the materially adverse: a security incident, a delisting, a large token unlock, regulatory action. Research older than a week is background, never presented as a fresh catalyst.</p>
+      <p>Research ages. After two hours it is marked aging; after six, or when price has moved more than a daily ATR, the shape has changed, or the quant signal has flipped, it is marked stale with the reason. Stale research is labelled, never refreshed on its own.</p>
+
+      <h2>3 · Wick Verdict</h2>
+      <p>The verdict is a small table. If no playbook matches, the verdict is Wait when research is supportive (worth watching) and Pass otherwise. If a playbook matches: a veto makes it Pass; weaken makes it Wait; otherwise it is the playbook's own entry action, which is Enter, or Wait when a trend entry is already extended by more than a daily ATR and a pullback is the better entry.</p>
+      <p>The verdict is advice. Take It Anyway is always available, and the trade records that it was taken against advice, so the ledger can later say whether that habit paid.</p>
+
+      <h2>4 · Trade Construction</h2>
+      <p>Wick works in one unit: a typical day's range in price, from the 14-period ATR. The <strong>invalidation</strong> (stop) comes from structure first: the recent swing low or high over the last two days, with a small buffer, and a volatility stop only when no valid swing exists on the right side. The <strong>target</strong> is the first structural level at least one unit beyond entry. Reward-to-risk is computed last; under 1.5 the plan carries a Pass, still takeable.</p>
+      <p><strong>Size</strong> follows from risk, never the other way round. The position is sized so that a stop-out costs a fixed percentage of equity (0.5%, 0.75% or 1% by profile; at most 0.5% for aggressive playbooks). Two account guards then apply: total open risk may not exceed 3% of equity, and a stop-out may not breach the day's remaining loss budget. Those are the only hard blocks in Wick. Estimated slippage at your size, from a live order-book snapshot, is added to the entry.</p>
+
+      <h2>5 · Position Monitoring</h2>
+      <p>Every minute, for every waiting and open position: a waiting trade whose trigger is touched becomes Ready (never Open); a stop that is crossed fills at the stop price; a target that is reached is flagged. If Wick was offline, it replays the stored tape from where it left off at the finest resolution available, fills a crossed stop at the candle where it crossed, and, when the stop and target fell inside the same candle, assumes the adverse event came first and says so. On request, a second model call reviews an open position against its entry thesis and answers Hold, Watch Closely, Reduce, or Consider Exit, with one reason.</p>
+
+      <h2>What the numbers are not</h2>
+      <p>Base rates are computed on limited local history, in-sample, on coins that were chosen for being liquid today. Episodes cluster in volatile regimes, so confidence intervals understate true uncertainty. Wick shows sample sizes and marks anything under thirty episodes as underpowered. None of it is predictive, and nothing in Wick is financial advice.</p>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap fgrid">
+      <div>
+        <div class="n">Candlelit Trading</div>
+        Digital asset research and trading systems.
+        <div class="d">Wick is a simulated trading terminal for research, practice and learning. Candlelit is not a brokerage, exchange or prop firm, and nothing on this site is financial advice.</div>
+      </div>
+      <div class="l"><a href="/wick">Wick</a><a href="/methodology">Methodology</a><a href="/learn">Learn</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://app.candlelit.us">Open Terminal</a><span>© 2026 Candlelit Trading</span></div>
+    </div>
+  </footer>
+  <script src="/site.js"></script>
+</body>
+</html>

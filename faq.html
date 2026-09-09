@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wick FAQ: Crypto Trading Simulator and Research Terminal Questions | Candlelit</title>
+  <meta name="description" content="Answers about Wick by Candlelit: what it is, whether it is a paper trading simulator, whether it trades automatically, where the data comes from, what the AI research does, and who it is for." />
+  <link rel="canonical" href="https://candlelit.us/faq" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Candlelit" />
+  <meta property="og:title" content="Wick FAQ: Crypto Trading Simulator and Research Terminal Questions | Candlelit" />
+  <meta property="og:description" content="Answers about Wick by Candlelit: what it is, whether it is a paper trading simulator, whether it trades automatically, where the data comes from, what the AI research does, and who it is for." />
+  <meta property="og:url" content="https://candlelit.us/faq" />
+  <meta property="og:image" content="https://candlelit.us/og-wick.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="describedby" href="/llms.txt" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='15.5' y='3' width='1' height='26' fill='%23f2eee6'/%3E%3Crect x='12.5' y='11' width='7' height='11' fill='%23f2eee6'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Wick?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Wick is a crypto market research and simulated trading terminal built by Candlelit. It combines live market data, quantitative setup detection across six playbooks, AI-assisted research, risk-based position sizing, and prop-style account simulation in one web application."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Wick a crypto paper trading simulator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Wick supports simulated crypto trading using live market data and prop-style account constraints: a daily loss limit, a maximum drawdown, and a profit target. It also adds research, setup detection, position sizing, trade monitoring, costs and slippage estimates, and a ledger, beyond a conventional paper account."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Wick trade automatically?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Wick analyzes markets and recommends possible actions, but opening, reducing, and closing positions are manual decisions. The one automatic action is a stop-out on an open simulated position, because a stop is an order you placed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Candlelit a brokerage, exchange, or prop firm?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Candlelit develops trading research and simulation software. Wick does not provide brokerage services, custody, funded accounts, or real-money execution, and it holds no exchange API keys."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where does the market data come from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Public exchange endpoints: Binance spot for candles, tickers and order books; Kraken spot for cross-exchange divergence and Kraken Futures for funding and open interest; Deribit for implied volatility. No account or key is needed for any of it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the AI research actually do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "One bounded model call per request, with at most three web searches, that classifies fresh external information for a setup as supportive, neutral, or adverse and lists dated catalysts. It does not pick direction and does not require a news catalyst: finding nothing is neutral. It runs only when you press Research, and every call is counted and costed on screen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Wick designed for beginners?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Wick is designed to make trading concepts understandable while they are being used. Terms such as ATR, funding, order flow, invalidation, reward-to-risk, position sizing, and drawdown are explained in plain English on hover, in the context of an actual simulated decision."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the six playbooks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trend Continuation and Pullback Continuation (standard), Relative Strength (moderate), and Momentum Breakout, Blow-off Reversal and Crowded Squeeze (aggressive). Each has its own checks, all of which are shown, and aggressive playbooks cap risk per trade at 0.5% of equity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I ignore Wick's advice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Always. Enter, Wait and Pass are advisory; Take It Anyway is a button. The only hard blocks are the account's own rules: open risk above 3% of equity, or a stop-out that would breach the day's remaining loss budget. Trades taken against advice are recorded as such."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Wick free? Can I use it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Wick is currently private and free. Access is by request to tradingcandlelight@gmail.com."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is anything on this site financial advice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Wick is a research and practice tool. Nothing on candlelit.us or in Wick is investment, financial, legal, or tax advice, and simulated results say nothing about future results with real money."
+      }
+    }
+  ]
+}
+  </script>
+</head>
+<body class="in">
+  <header id="hdr">
+    <div class="wrap nav">
+      <a class="mark" href="/">
+        <svg viewBox="0 0 10 26" aria-hidden="true"><rect x="4.5" y="0" width="1" height="26" fill="#f2eee6"/><rect x="2" y="8" width="6" height="10" fill="#f2eee6"/></svg>
+        Candlelit
+      </a>
+      <nav class="links" aria-label="Site"><a href="/wick">Wick</a><a href="/methodology">Methodology</a><a href="/learn">Learn</a><a href="/faq" aria-current="page">FAQ</a><a href="mailto:tradingcandlelight@gmail.com">Contact</a></nav>
+      <a class="enter" href="https://app.candlelit.us">Open Terminal <span class="arrow">↗</span></a>
+    </div>
+  </header>
+
+  <main class="wrap page">
+    <div class="eyebrow">FAQ</div>
+    <h1>Questions, <em>answered</em> plainly.</h1>
+    <p class="lede">What Wick is, what it is not, and how it behaves. If yours is missing, write to tradingcandlelight@gmail.com.</p>
+    <div class="prose"><dl>
+      <dt>What is Wick?</dt><dd>Wick is a crypto market research and simulated trading terminal built by Candlelit. It combines live market data, quantitative setup detection across six playbooks, AI-assisted research, risk-based position sizing, and prop-style account simulation in one web application.</dd>
+      <dt>Is Wick a crypto paper trading simulator?</dt><dd>Yes. Wick supports simulated crypto trading using live market data and prop-style account constraints: a daily loss limit, a maximum drawdown, and a profit target. It also adds research, setup detection, position sizing, trade monitoring, costs and slippage estimates, and a ledger, beyond a conventional paper account.</dd>
+      <dt>Does Wick trade automatically?</dt><dd>No. Wick analyzes markets and recommends possible actions, but opening, reducing, and closing positions are manual decisions. The one automatic action is a stop-out on an open simulated position, because a stop is an order you placed.</dd>
+      <dt>Is Candlelit a brokerage, exchange, or prop firm?</dt><dd>No. Candlelit develops trading research and simulation software. Wick does not provide brokerage services, custody, funded accounts, or real-money execution, and it holds no exchange API keys.</dd>
+      <dt>Where does the market data come from?</dt><dd>Public exchange endpoints: Binance spot for candles, tickers and order books; Kraken spot for cross-exchange divergence and Kraken Futures for funding and open interest; Deribit for implied volatility. No account or key is needed for any of it.</dd>
+      <dt>What does the AI research actually do?</dt><dd>One bounded model call per request, with at most three web searches, that classifies fresh external information for a setup as supportive, neutral, or adverse and lists dated catalysts. It does not pick direction and does not require a news catalyst: finding nothing is neutral. It runs only when you press Research, and every call is counted and costed on screen.</dd>
+      <dt>Is Wick designed for beginners?</dt><dd>Yes. Wick is designed to make trading concepts understandable while they are being used. Terms such as ATR, funding, order flow, invalidation, reward-to-risk, position sizing, and drawdown are explained in plain English on hover, in the context of an actual simulated decision.</dd>
+      <dt>What are the six playbooks?</dt><dd>Trend Continuation and Pullback Continuation (standard), Relative Strength (moderate), and Momentum Breakout, Blow-off Reversal and Crowded Squeeze (aggressive). Each has its own checks, all of which are shown, and aggressive playbooks cap risk per trade at 0.5% of equity.</dd>
+      <dt>Can I ignore Wick's advice?</dt><dd>Always. Enter, Wait and Pass are advisory; Take It Anyway is a button. The only hard blocks are the account's own rules: open risk above 3% of equity, or a stop-out that would breach the day's remaining loss budget. Trades taken against advice are recorded as such.</dd>
+      <dt>Is Wick free? Can I use it?</dt><dd>Wick is currently private and free. Access is by request to tradingcandlelight@gmail.com.</dd>
+      <dt>Is anything on this site financial advice?</dt><dd>No. Wick is a research and practice tool. Nothing on candlelit.us or in Wick is investment, financial, legal, or tax advice, and simulated results say nothing about future results with real money.</dd>
+    </dl></div>
+
+  </main>
+
+  <footer>
+    <div class="wrap fgrid">
+      <div>
+        <div class="n">Candlelit Trading</div>
+        Digital asset research and trading systems.
+        <div class="d">Wick is a simulated trading terminal for research, practice and learning. Candlelit is not a brokerage, exchange or prop firm, and nothing on this site is financial advice.</div>
+      </div>
+      <div class="l"><a href="/wick">Wick</a><a href="/methodology">Methodology</a><a href="/learn">Learn</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://app.candlelit.us">Open Terminal</a><span>© 2026 Candlelit Trading</span></div>
+    </div>
+  </footer>
+  <script src="/site.js"></script>
+</body>
+</html>

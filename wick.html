@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wick: Crypto Market Research and Simulated Trading Terminal | Candlelit</title>
+  <meta name="description" content="Wick is a web-based crypto research and simulated trading terminal by Candlelit. Live market data, six quantitative playbooks, AI-assisted research, risk-based sizing, and prop-style simulated accounts." />
+  <link rel="canonical" href="https://candlelit.us/wick" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Candlelit" />
+  <meta property="og:title" content="Wick: Crypto Market Research and Simulated Trading Terminal | Candlelit" />
+  <meta property="og:description" content="Wick is a web-based crypto research and simulated trading terminal by Candlelit. Live market data, six quantitative playbooks, AI-assisted research, risk-based sizing, and prop-style simulated accounts." />
+  <meta property="og:url" content="https://candlelit.us/wick" />
+  <meta property="og:image" content="https://candlelit.us/og-wick.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="describedby" href="/llms.txt" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='15.5' y='3' width='1' height='26' fill='%23f2eee6'/%3E%3Crect x='12.5' y='11' width='7' height='11' fill='%23f2eee6'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="in">
+  <header id="hdr">
+    <div class="wrap nav">
+      <a class="mark" href="/">
+        <svg viewBox="0 0 10 26" aria-hidden="true"><rect x="4.5" y="0" width="1" height="26" fill="#f2eee6"/><rect x="2" y="8" width="6" height="10" fill="#f2eee6"/></svg>
+        Candlelit
+      </a>
+      <nav class="links" aria-label="Site"><a href="/wick" aria-current="page">Wick</a><a href="/methodology">Methodology</a><a href="/learn">Learn</a><a href="/faq">FAQ</a><a href="mailto:tradingcandlelight@gmail.com">Contact</a></nav>
+      <a class="enter" href="https://app.candlelit.us">Open Terminal <span class="arrow">↗</span></a>
+    </div>
+  </header>
+
+  <main class="wrap page">
+    <div class="eyebrow">The Desk</div>
+    <h1>Wick</h1>
+    <p class="lede">A crypto market research and simulated trading terminal. Live exchange data, quantitative setup detection, AI-assisted research, risk-based position sizing, and prop-style simulated accounts, in one workspace where every trade stays a human decision.</p>
+
+    <div class="prose">
+      <h2>What Wick is</h2>
+      <p>Wick is a web application built by Candlelit Trading for researching cryptocurrency markets and practising trading against the rules proprietary-trading firms use. It reads public market data from major exchanges, scores every tracked coin against six quantitative playbooks, lets you run bounded AI research on the ones that look interesting, and builds a complete trade plan with the stop, target, and position size already worked out. Execution is simulated. Wick holds no exchange accounts, no API keys, and places no real orders.</p>
+      <p>It is also, deliberately, a teaching instrument. Every term on screen is explained in plain English where it appears, so the vocabulary of trading is learned by using it.</p>
+
+      <h2>The five screens</h2>
+      <h3>Charts</h3>
+      <p>Up to four live candlestick charts on six timeframes from one minute to one day. History is stored locally, so the charts are continuous even across restarts, and gaps are repaired from the exchange automatically.</p>
+      <h3>Market</h3>
+      <p>Every USDT pair on the exchange with last price, 24-hour change and volume, a cross-exchange divergence column, and two momentum columns: the change over the last hour, and whether that change is speeding up or fading. From here any coin can be sent to Analysis or traded directly.</p>
+      <h3>Context</h3>
+      <p>One coin in depth. Volume against its own 30-day average, realised and implied volatility, moving-average distances, RSI, order-book depth and slippage at your account size, funding and open interest, correlation to Bitcoin, and historical base rates: what happened after moments like this one on this coin before, with sample sizes and confidence intervals.</p>
+      <h3>Analysis</h3>
+      <p>The research workspace. A scan every fifteen minutes checks every tracked coin against the playbooks and sorts them into Needs Research, Researched, and Watching. Research runs on demand, on the server, and returns a classification of the external context: supportive, neutral, or adverse. Wick's verdict combines the two: Enter, Wait, or Pass. The verdict is advice. You can always take the trade anyway.</p>
+      <h3>Trade</h3>
+      <p>Simulated accounts with prop-style rules: daily loss limit, maximum drawdown, and profit target. Positions are opened from a trade ticket that already contains the plan. Stops fill automatically, because a stop is an order you placed. Targets are flagged, and closing is your decision. Every closed trade records its costs, its playbook, and your notes, and the ledger exports as CSV.</p>
+
+      <h2>The six playbooks</h2>
+      <ul>
+        <li><strong>Trend Continuation</strong> (standard): an established trend with confirming volume and aggressors on the trend side, not extended into an extreme.</li>
+        <li><strong>Pullback Continuation</strong> (standard): the larger trend is intact and price has come back to the 20-bar mean with momentum reset.</li>
+        <li><strong>Relative Strength</strong> (moderate): the coin is moving on its own, beyond what Bitcoin explains, with the larger trend behind it.</li>
+        <li><strong>Momentum Breakout</strong> (aggressive): an exceptional move on exceptional volume with one-sided flow.</li>
+        <li><strong>Blow-off Reversal</strong> (aggressive): an exhaustion bar with momentum at an extreme and aggressors already flipping.</li>
+        <li><strong>Crowded Squeeze</strong> (aggressive): funding says one side is crowded and price is moving against that crowd.</li>
+      </ul>
+      <p>Aggressive playbooks cap risk at half a percent of equity whatever profile you choose, because their failures are fast. The ticket says so when it applies.</p>
+
+      <h2>What Wick will not do</h2>
+      <ul>
+        <li>Open a position on its own. Waiting trades become Ready when their trigger is touched; opening is your click.</li>
+        <li>Run AI research without being asked. Every model call is a button press, counted and costed on screen.</li>
+        <li>Trade real money. Candlelit is not a brokerage, exchange, or prop firm.</li>
+      </ul>
+
+      <div class="rule"></div>
+      <p><a href="/methodology">How Wick analyzes markets, research, risk and sizing →</a></p>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap fgrid">
+      <div>
+        <div class="n">Candlelit Trading</div>
+        Digital asset research and trading systems.
+        <div class="d">Wick is a simulated trading terminal for research, practice and learning. Candlelit is not a brokerage, exchange or prop firm, and nothing on this site is financial advice.</div>
+      </div>
+      <div class="l"><a href="/wick">Wick</a><a href="/methodology">Methodology</a><a href="/learn">Learn</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="https://app.candlelit.us">Open Terminal</a><span>© 2026 Candlelit Trading</span></div>
+    </div>
+  </footer>
+  <script src="/site.js"></script>
+</body>
+</html>
