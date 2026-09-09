@@ -200,7 +200,7 @@
       let s = seed; const rnd = () => (s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296;
       let price = start; const bars = [];
       for (let i = 0; i < n; i++) {
-        const drift = up ? 0.0012 : -0.0004, o = price, c = o * (1 + drift + (rnd() - 0.5) * 0.02);
+        const drift = up ? 0.0004 : -0.0003, o = price, c = o * (1 + drift + (rnd() - 0.5) * 0.02);
         const hi = Math.max(o, c) * (1 + rnd() * 0.008), lo = Math.min(o, c) * (1 - rnd() * 0.008);
         bars.push([o, hi, lo, c]); price = c;
       }
