@@ -4,77 +4,239 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Candlelit</title>
-  <meta name="description" content="Candlelit: a guided desk for practising crypto prop-firm challenges. Research, plan, and trade against real market data with real rules." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='13' y='6' width='6' height='20' rx='1' fill='%2334d399'/%3E%3Crect x='15.5' y='2' width='1' height='28' fill='%2334d399'/%3E%3C/svg%3E" />
+  <meta name="description" content="Candlelit is a research-driven trading operation built around market structure, disciplined risk and technology." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='15.5' y='3' width='1' height='26' fill='%23f2eee6'/%3E%3Crect x='12.5' y='11' width='7' height='11' fill='%23f2eee6'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    :root { color-scheme: dark; }
+    :root {
+      --bg: #0a0a0a; --ink: #f2eee6; --ink-2: #a8a29a; --ink-3: #5f5b55; --rule: #1f1e1c; --accent: #2fbf8f;
+      --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+      --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      color-scheme: dark;
+    }
     * { box-sizing: border-box; }
-    html, body { margin: 0; height: 100%; }
-    body {
-      font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      color: #e4e4e7; background: #09090b;
-      display: flex; flex-direction: column; min-height: 100vh;
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 300 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--accent); color: #0a0a0a; }
+
+    /* The wick: one hairline that runs the length of the page. */
+    .wick { position: fixed; left: 50%; top: 0; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, #2a2926 15%, #2a2926 85%, transparent); opacity: 0; transform: scaleY(0); transform-origin: top; transition: opacity 1.2s ease 0.9s, transform 2.4s cubic-bezier(.2,.7,.2,1) 0.9s; pointer-events: none; z-index: 0; }
+    body.in .wick { opacity: 1; transform: scaleY(1); }
+
+    .wrap { position: relative; z-index: 1; width: min(1240px, 100% - 64px); margin: 0 auto; }
+    @media (max-width: 640px) { .wrap { width: min(1240px, 100% - 40px); } }
+
+    /* Nav */
+    header { position: sticky; top: 0; z-index: 5; backdrop-filter: blur(10px); background: rgba(10,10,10,0.7); border-bottom: 1px solid transparent; transition: border-color .4s; }
+    header.scrolled { border-color: var(--rule); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .mark { display: flex; align-items: center; gap: 12px; font-weight: 500; letter-spacing: 0.32em; font-size: 12px; text-transform: uppercase; }
+    .mark svg { width: 10px; height: 26px; display: block; }
+    .links { display: flex; gap: 32px; font-size: 13px; color: var(--ink-2); letter-spacing: 0.02em; }
+    .links a { position: relative; padding: 4px 0; transition: color .3s; }
+    .links a:hover { color: var(--ink); }
+    .links a::after { content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%; background: var(--ink); transform: scaleX(0); transform-origin: right; transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+    .links a:hover::after { transform: scaleX(1); transform-origin: left; }
+    .enter { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; letter-spacing: 0.06em; padding: 10px 0 10px 18px; border-left: 1px solid var(--rule); color: var(--ink); }
+    .enter .arrow { display: inline-block; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+    .enter:hover .arrow { transform: translate(3px, -3px); }
+    @media (max-width: 720px) { .links { display: none; } }
+
+    /* Reveal */
+    .r { opacity: 0; transform: translateY(18px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
+    .r.on { opacity: 1; transform: none; }
+    .r[data-d="1"] { transition-delay: .12s } .r[data-d="2"] { transition-delay: .24s } .r[data-d="3"] { transition-delay: .36s } .r[data-d="4"] { transition-delay: .5s }
+
+    /* Hero */
+    .hero { min-height: calc(100vh - 72px); display: grid; align-content: center; padding: 8vh 0 12vh; }
+    .eyebrow { font-size: 11px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 40px; }
+    h1 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(56px, 10.5vw, 148px); line-height: 0.96; letter-spacing: -0.02em; }
+    h1 em { font-style: italic; color: var(--ink); }
+    h1 .line { display: block; overflow: hidden; }
+    h1 .line span { display: block; transform: translateY(110%); transition: transform 1.4s cubic-bezier(.2,.8,.2,1); }
+    body.in h1 .line:nth-child(1) span { transform: none; transition-delay: .25s }
+    body.in h1 .line:nth-child(2) span { transform: none; transition-delay: .4s }
+    .lede { max-width: 540px; margin: 48px 0 0; font-size: 18px; color: var(--ink-2); line-height: 1.7; }
+    .cta { margin-top: 56px; display: inline-flex; align-items: center; gap: 14px; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid var(--ink-3); transition: border-color .4s; }
+    .cta:hover { border-color: var(--ink); }
+    .cta .arrow { transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+    .cta:hover .arrow { transform: translateX(6px); }
+
+    /* Sections */
+    section { padding: 14vh 0; border-top: 1px solid var(--rule); }
+    .num { font-size: 11px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 36px; display: flex; align-items: center; gap: 18px; }
+    .num::after { content: ""; height: 1px; width: 0; background: var(--rule); transition: width 1.6s cubic-bezier(.2,.7,.2,1) .3s; }
+    .num.on::after { width: 120px; }
+    h2 { margin: 0; font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 6.2vw, 88px); line-height: 1.0; letter-spacing: -0.015em; }
+    h2 em { font-style: italic; }
+    .two { display: grid; grid-template-columns: 5fr 6fr; gap: 72px; align-items: center; }
+    .two p { max-width: 460px; font-size: 17px; color: var(--ink-2); line-height: 1.75; margin: 32px 0 0; }
+    .more { display: inline-block; margin-top: 28px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--ink-3); padding-bottom: 6px; }
+    @media (max-width: 900px) { .two { grid-template-columns: 1fr; gap: 44px; } }
+
+    /* Terminal frame */
+    .frame { position: relative; border: 1px solid var(--rule); background: #0d0d0d; border-radius: 6px; overflow: hidden; box-shadow: 0 60px 120px -60px rgba(0,0,0,.9); will-change: transform; }
+    .frame .bar { display: flex; align-items: center; gap: 22px; padding: 12px 18px; border-bottom: 1px solid var(--rule); font-size: 11px; letter-spacing: 0.08em; color: var(--ink-3); }
+    .frame .bar b { color: var(--ink); font-weight: 500; letter-spacing: 0.02em; }
+    .frame .bar .on { color: var(--ink); }
+    .frame .bar .live { margin-left: auto; display: flex; align-items: center; gap: 7px; color: var(--ink-2); }
+    .frame .bar .live i { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); display: inline-block; }
+    .frame .head { display: flex; gap: 22px; align-items: baseline; padding: 16px 18px 0; font-size: 12px; color: var(--ink-2); }
+    .frame .head b { font-size: 14px; color: var(--ink); font-weight: 500; letter-spacing: .04em; }
+    .frame .head .px { color: var(--ink); font-variant-numeric: tabular-nums; }
+    .frame .head .up { color: var(--accent); }
+    .frame svg { display: block; width: 100%; height: auto; }
+    .frame .foot { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rule); }
+    .frame .foot div { padding: 12px 18px; font-size: 11px; color: var(--ink-3); letter-spacing: .06em; border-right: 1px solid var(--rule); }
+    .frame .foot div:last-child { border-right: 0; }
+    .frame .foot b { display: block; color: var(--ink-2); font-weight: 400; font-size: 13px; letter-spacing: 0; margin-top: 3px; font-variant-numeric: tabular-nums; }
+
+    /* Statement */
+    .statement { text-align: center; }
+    .statement h2 { max-width: 1000px; margin: 0 auto; }
+    .statement p { max-width: 560px; margin: 40px auto 0; font-size: 17px; color: var(--ink-2); line-height: 1.75; }
+    .q { font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2.6vw, 30px); color: var(--ink); margin-top: 48px; }
+
+    /* Desk */
+    .desk .top { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 56px; flex-wrap: wrap; }
+    .desk .tabs { display: flex; gap: 28px; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); }
+    .desk .tabs span { position: relative; padding-bottom: 8px; }
+    .desk .tabs span.cur { color: var(--ink); }
+    .desk .tabs span.cur::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--ink); }
+    .desk p { max-width: 520px; color: var(--ink-2); font-size: 17px; line-height: 1.75; margin: 28px 0 0; }
+    .desk .frame { margin-top: 24px; }
+
+    footer { border-top: 1px solid var(--rule); padding: 56px 0 40px; }
+    .fgrid { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; font-size: 13px; color: var(--ink-3); }
+    .fgrid .n { color: var(--ink); letter-spacing: .32em; text-transform: uppercase; font-size: 12px; font-weight: 500; margin-bottom: 10px; }
+    .fgrid .l { display: flex; gap: 28px; }
+    .fgrid .l a { color: var(--ink-2); }
+    .fgrid .l a:hover { color: var(--ink); }
+    @media (max-width: 640px) { .fgrid { grid-template-columns: 1fr; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .r, h1 .line span, .wick, .num::after { transition: none !important; transform: none !important; opacity: 1 !important; width: 120px; }
     }
-    .glow {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background: radial-gradient(60% 45% at 50% 0%, rgba(52, 211, 153, 0.14), transparent 70%);
-    }
-    header, main, footer { position: relative; z-index: 1; }
-    header { display: flex; align-items: center; justify-content: space-between; padding: 22px 32px; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; color: #fafafa; text-decoration: none; }
-    .brand svg { width: 20px; height: 20px; }
-    nav a { color: #a1a1aa; text-decoration: none; margin-left: 24px; font-size: 15px; }
-    nav a:hover { color: #fafafa; }
-    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 24px 80px; text-align: center; }
-    .hero { max-width: 720px; }
-    .eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #34d399; }
-    h1 { font-size: clamp(40px, 7vw, 68px); line-height: 1.05; letter-spacing: -0.03em; margin: 14px 0 18px; color: #fafafa; }
-    .lede { font-size: 19px; color: #a1a1aa; margin: 0 auto 34px; max-width: 560px; }
-    .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn { display: inline-block; padding: 13px 24px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 16px; }
-    .primary { background: #34d399; color: #09090b; }
-    .primary:hover { background: #6ee7b7; }
-    .quiet { border: 1px solid #3f3f46; color: #d4d4d8; }
-    .quiet:hover { border-color: #71717a; color: #fafafa; }
-    .points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 64px; text-align: left; }
-    .point h3 { margin: 0 0 6px; font-size: 15px; color: #fafafa; }
-    .point p { margin: 0; font-size: 14px; color: #a1a1aa; }
-    @media (max-width: 640px) { .points { grid-template-columns: 1fr; } header { padding: 18px 20px; } }
-    footer { padding: 20px 32px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 13px; color: #71717a; border-top: 1px solid #18181b; }
-    footer a { color: #a1a1aa; text-decoration: none; }
-    footer a:hover { color: #fafafa; }
   </style>
 </head>
 <body>
-  <div class="glow"></div>
-  <header>
-    <a class="brand" href="/">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="13" y="6" width="6" height="20" rx="1" fill="#34d399"/><rect x="15.5" y="2" width="1" height="28" fill="#34d399"/></svg>
-      Candlelit
-    </a>
-    <nav><a href="https://app.candlelit.us">Open the Terminal</a><a href="mailto:tradingcandlelight@gmail.com">Contact</a></nav>
+  <div class="wick" aria-hidden="true"></div>
+
+  <header id="hdr">
+    <div class="wrap nav">
+      <a class="mark" href="/">
+        <svg viewBox="0 0 10 26" aria-hidden="true"><rect x="4.5" y="0" width="1" height="26" fill="#f2eee6"/><rect x="2" y="8" width="6" height="10" fill="#f2eee6"/></svg>
+        Candlelit
+      </a>
+      <nav class="links"><a href="#approach">Approach</a><a href="#desk">Wick</a><a href="mailto:tradingcandlelight@gmail.com">Contact</a></nav>
+      <a class="enter" href="https://app.candlelit.us">Open Terminal <span class="arrow">↗</span></a>
+    </div>
   </header>
 
-  <main>
+  <main class="wrap">
     <div class="hero">
-      <div class="eyebrow">Wick · Trading Desk</div>
-      <h1>Practise the challenge before you pay for it.</h1>
-      <p class="lede">A guided desk for crypto prop-firm challenges. Wick does the research and the sizing on real market data. You make the calls, under the same daily-loss and drawdown rules the firms use.</p>
-      <div class="actions">
-        <a class="btn primary" href="https://app.candlelit.us">Open the Terminal</a>
-        <a class="btn quiet" href="mailto:tradingcandlelight@gmail.com">Request Access</a>
-      </div>
-      <div class="points">
-        <div class="point"><h3>Research First</h3><p>Every setup is scanned, shaped, and checked against how that pattern played out before on that coin.</p></div>
-        <div class="point"><h3>Bounded Decisions</h3><p>Stops fill automatically, targets are flagged, and the account rules are the only hard block.</p></div>
-        <div class="point"><h3>Honest Numbers</h3><p>Simulated accounts with real costs, real slippage estimates, and a ledger you can export.</p></div>
-      </div>
+      <div class="eyebrow r on" data-d="1">Candlelit Trading</div>
+      <h1><span class="line"><span>Finding <em>signal</em></span></span><span class="line"><span>in the movement.</span></span></h1>
+      <p class="lede r" data-d="3">Candlelit is a research-driven trading operation built around market structure, disciplined risk and technology.</p>
+      <a class="cta r" data-d="4" href="https://app.candlelit.us">Enter Wick <span class="arrow">→</span></a>
     </div>
+
+    <section id="approach">
+      <div class="num r">01 · Research before conviction</div>
+      <div class="two">
+        <div>
+          <h2 class="r">Markets rarely move for <em>one</em> reason.</h2>
+          <p class="r" data-d="1">Price structure, volume, positioning, liquidity and how the same pattern resolved before are read together, with current information, before a trade reaches the desk.</p>
+          <a class="more r" data-d="2" href="#desk">Explore the desk</a>
+        </div>
+        <div class="frame r" data-d="2" data-parallax>
+          <div class="bar"><b>Wick</b><span>Charts</span><span>Market</span><span>Context</span><span class="on">Analysis</span><span>Trade</span><span class="live"><i></i>LIVE</span></div>
+          <div class="head"><b>BTCUSDT</b><span class="px" id="px1">—</span><span class="up" id="ch1">—</span><span>1h</span></div>
+          <svg id="c1" viewBox="0 0 640 260" preserveAspectRatio="none"></svg>
+          <div class="foot"><div>Shape<b>Clean uptrend</b></div><div>Volume<b>2.1× 30d</b></div><div>Taker flow<b>57% buy</b></div><div>Funding<b>+0.008%</b></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="statement">
+      <div class="num r" style="justify-content:center">02 · Structure before size</div>
+      <h2 class="r">Every position begins with the <em>same</em> question.</h2>
+      <div class="q r" data-d="1">How much is lost if the thesis is wrong?</div>
+      <p class="r" data-d="2">Invalidation, risk and account constraints are resolved before capital is allocated. The stop is an order, not an intention.</p>
+    </section>
+
+    <section id="desk" class="desk">
+      <div class="num r">03 · The desk</div>
+      <div class="top">
+        <div>
+          <h2 class="r">Wick</h2>
+          <p class="r" data-d="1">A market research and trading terminal built by Candlelit. Structure, flow, positioning and research on one screen, with the risk rules enforced at the point of entry.</p>
+        </div>
+        <div class="tabs r" data-d="2"><span>Charts</span><span>Market</span><span>Context</span><span>Analysis</span><span class="cur">Trade</span></div>
+      </div>
+      <div class="frame r" data-d="2" data-parallax>
+        <div class="bar"><b>Wick</b><span>Charts</span><span>Market</span><span>Context</span><span>Analysis</span><span class="on">Trade</span><span class="live"><i></i>LIVE</span></div>
+        <div class="head"><b>ETHUSDT</b><span class="px" id="px2">—</span><span class="up" id="ch2">—</span><span>15m</span></div>
+        <svg id="c2" viewBox="0 0 1200 380" preserveAspectRatio="none"></svg>
+        <div class="foot"><div>Entry<b>market</b></div><div>Invalidation<b>1.4 ATR below swing</b></div><div>Risk<b>0.75% of equity</b></div><div>Reward to risk<b>2.3</b></div></div>
+      </div>
+      <p class="r" data-d="1" style="margin-top:40px"><a class="cta" href="https://app.candlelit.us">Open Terminal <span class="arrow">→</span></a></p>
+    </section>
   </main>
 
   <footer>
-    <span>© 2026 Candlelit. Simulated trading only. Not financial advice.</span>
-    <span><a href="https://app.candlelit.us">app.candlelit.us</a></span>
+    <div class="wrap fgrid">
+      <div><div class="n">Candlelit Trading</div>Digital asset research and trading technology.</div>
+      <div class="l"><a href="https://app.candlelit.us">Wick Terminal</a><a href="mailto:tradingcandlelight@gmail.com">Contact</a><span>© 2026 Candlelit Trading</span></div>
+    </div>
   </footer>
+
+  <script>
+    // Deterministic candles so the frames are stable and honest-looking product imagery, not a live feed.
+    function candles(svgId, pxId, chId, n, start, seed, w, h, up) {
+      let s = seed; const rnd = () => (s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296;
+      let price = start; const bars = [];
+      for (let i = 0; i < n; i++) {
+        const drift = up ? 0.0012 : -0.0004, o = price, c = o * (1 + drift + (rnd() - 0.5) * 0.02);
+        const hi = Math.max(o, c) * (1 + rnd() * 0.008), lo = Math.min(o, c) * (1 - rnd() * 0.008);
+        bars.push([o, hi, lo, c]); price = c;
+      }
+      const min = Math.min(...bars.map(b => b[2])), max = Math.max(...bars.map(b => b[1]));
+      const y = v => 18 + (h - 36) * (1 - (v - min) / (max - min));
+      const step = w / n, bw = Math.max(2, step * 0.55);
+      let out = "";
+      for (let i = 0; i < 3; i++) out += `<line x1="0" x2="${w}" y1="${(h / 4) * (i + 1)}" y2="${(h / 4) * (i + 1)}" stroke="#171614" stroke-width="1"/>`;
+      bars.forEach(([o, hi, lo, c], i) => {
+        const x = i * step + step / 2, col = c >= o ? "#2fbf8f" : "#6b665f";
+        out += `<line x1="${x}" x2="${x}" y1="${y(hi)}" y2="${y(lo)}" stroke="${col}" stroke-width="1"/>`;
+        out += `<rect x="${x - bw / 2}" y="${y(Math.max(o, c))}" width="${bw}" height="${Math.max(1, Math.abs(y(o) - y(c)))}" fill="${col}"/>`;
+      });
+      const last = bars[bars.length - 1][3], first = bars[0][0];
+      out += `<line x1="0" x2="${w}" y1="${y(last)}" y2="${y(last)}" stroke="#2fbf8f" stroke-opacity=".5" stroke-dasharray="3 5" stroke-width="1"/>`;
+      document.getElementById(svgId).innerHTML = out;
+      document.getElementById(pxId).textContent = last.toLocaleString(undefined, { maximumFractionDigits: 2 });
+      const ch = (last / first - 1) * 100;
+      document.getElementById(chId).textContent = (ch >= 0 ? "+" : "") + ch.toFixed(2) + "%";
+    }
+    candles("c1", "px1", "ch1", 72, 61840, 7, 640, 260, true);
+    candles("c2", "px2", "ch2", 140, 2418, 11, 1200, 380, true);
+
+    // Reveal on scroll, once.
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -12% 0px" });
+    document.querySelectorAll(".r, .num").forEach((el) => io.observe(el));
+
+    // Load-in, header rule, and a few pixels of parallax on the frames.
+    requestAnimationFrame(() => document.body.classList.add("in"));
+    const hdr = document.getElementById("hdr"), frames = [...document.querySelectorAll("[data-parallax]")];
+    const onScroll = () => {
+      hdr.classList.toggle("scrolled", scrollY > 8);
+      const vh = innerHeight;
+      frames.forEach((f) => { const r = f.getBoundingClientRect(); const p = (r.top + r.height / 2 - vh / 2) / vh; f.style.transform = `translateY(${(-p * 14).toFixed(1)}px)`; });
+    };
+    addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  </script>
 </body>
 </html>
