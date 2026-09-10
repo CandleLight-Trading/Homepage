@@ -42,3 +42,16 @@ const onScroll = () => {
   frames.forEach((f) => { const r = f.getBoundingClientRect(); const p = (r.top + r.height / 2 - vh / 2) / vh; f.style.transform = `translateY(${(-p * 14).toFixed(1)}px)`; });
 };
 addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+// Same-site link clicks fade the page out before leaving, on browsers without view transitions.
+if (!("startViewTransition" in document)) {
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a[href]");
+    if (!a || a.target === "_blank" || e.metaKey || e.ctrlKey) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || url.pathname === location.pathname) return;
+    e.preventDefault();
+    document.body.classList.add("leaving");
+    setTimeout(() => { location.href = a.href; }, 140);
+  });
+}

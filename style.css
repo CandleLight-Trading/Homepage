@@ -144,6 +144,19 @@ footer { border-top: 1px solid var(--rule); padding: 56px 0 40px; }
 .fgrid .d { margin-top: 12px; max-width: 640px; line-height: 1.6; }
 @media (max-width: 640px) { .fgrid { grid-template-columns: 1fr; } }
 
+/* Page-to-page: a cross-document fade where the browser supports view transitions; a fade-in on
+   arrival everywhere else, and site.js fades the old page out on same-site clicks. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: 120ms ease-out both vt-out; }
+::view-transition-new(root) { animation: 200ms ease-out both vt-in; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; } }
+main, footer { animation: page-in 260ms ease-out both; }
+@keyframes page-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+body.leaving main, body.leaving footer, body.leaving header { opacity: 0; transition: opacity 140ms ease-out; }
+
 @media (prefers-reduced-motion: reduce) {
+  main, footer { animation: none; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
   .r, h1 .line span, .wick, .num::after { transition: none !important; transform: none !important; opacity: 1 !important; width: 120px; }
 }
