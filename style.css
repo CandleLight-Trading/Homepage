@@ -142,6 +142,9 @@ footer { border-top: 1px solid var(--rule); padding: 56px 0 40px; }
 .fgrid .l a { color: var(--ink-2); }
 .fgrid .l a:hover { color: var(--ink); }
 .fgrid .d { margin-top: 12px; max-width: 640px; line-height: 1.6; }
+.fgrid .agent-desk-note { margin: 12px 0 0; max-width: 640px; line-height: 1.6; }
+.fgrid .agent-desk-note a { color: var(--ink-2); border-bottom: 1px solid var(--rule); }
+.fgrid .agent-desk-note a:hover { color: var(--ink); border-color: var(--ink); }
 @media (max-width: 640px) { .fgrid { grid-template-columns: 1fr; } }
 
 /* Page-to-page: a cross-document fade where the browser supports view transitions; a fade-in on
