@@ -136,15 +136,16 @@ h2 em { font-style: italic; }
 .note { border-left: 1px solid var(--accent); padding: 4px 0 4px 18px; color: var(--ink-2); font-size: 15px; margin: 24px 0; }
 
 footer { border-top: 1px solid var(--rule); padding: 56px 0 40px; }
-.fgrid { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; font-size: 13px; color: var(--ink-3); }
+.fgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: end; font-size: 13px; color: var(--ink-3); }
 .fgrid .n { color: var(--ink); letter-spacing: .32em; text-transform: uppercase; font-size: 12px; font-weight: 500; margin-bottom: 10px; }
 .fgrid .l { display: flex; gap: 22px; flex-wrap: wrap; }
 .fgrid .l a { color: var(--ink-2); }
 .fgrid .l a:hover { color: var(--ink); }
 .fgrid .d { margin-top: 12px; max-width: 640px; line-height: 1.6; }
-.fgrid .agent-desk-note { margin: 12px 0 0; max-width: 640px; line-height: 1.6; }
-.fgrid .agent-desk-note a { color: var(--ink-2); border-bottom: 1px solid var(--rule); }
+.fgrid .agent-desk-note { margin: 12px 0 0; max-width: 640px; line-height: 1.6; color: var(--ink-2); overflow-wrap: anywhere; }
+.fgrid .agent-desk-note a { color: var(--ink-2); border-bottom: 1px solid currentColor; }
 .fgrid .agent-desk-note a:hover { color: var(--ink); border-color: var(--ink); }
+.fgrid .agent-desk-note a:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 2px; }
 @media (max-width: 640px) { .fgrid { grid-template-columns: 1fr; } }
 
 /* Page-to-page: a cross-document fade where the browser supports view transitions; a fade-in on
